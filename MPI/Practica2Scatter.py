@@ -7,11 +7,11 @@ print("my rank is %i" % (rank))
 
 
 if rank==0:
-    size_ = (10000,10000)
+    size_ = (1000,1000)
     matriz1 = np.random.randint(10, size=size_).astype("float") / 100
     matriz2 = np.random.randint(10, size=size_).astype("float") / 100
-    x=np.hsplit(matriz1,4);
-    y=np.hsplit(matriz2,4);
+    x=np.hsplit(matriz1,4)
+    y=np.hsplit(matriz2,4)
     array_to_share=[(x[0],y[0]),(x[0],y[0]),(x[1],y[1]),(x[2],y[2]),(x[3],y[3]),(matriz1,matriz2)]
     comm.scatter(array_to_share, root=0)
 else:
@@ -103,9 +103,13 @@ if rank==5:
 
     sumaTotal=np.concatenate((A,B,C,D),axis=1,out=None)
     restaTotal=np.concatenate((A1,B1,C1,D1),axis=1,out=None)
-    print(np.shape(sumaTotal))
+    print("Suma de matrices")
     for i in range(5):
         print("%f + %f = %f" % (mat1[i][i], mat2[i][i], sumaTotal[i][i]))
+    
+    print("Resta de matrices")
+    for i in range(5):
+        print("%f - %f = %f" % (mat1[i][i], mat2[i][i], restaTotal[i][i]))
 
  
     
