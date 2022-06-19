@@ -1,7 +1,7 @@
 import time
 import numpy as np
 inicio = time.time()
-size_ = (10000,10000)
+size_ = (3000,3000)
 matriz1 = np.random.randint(10, size=size_).astype("float") / 100
 matriz2 = np.random.randint(10, size=size_).astype("float") / 100
 suma = np.zeros(dtype=float, shape=size_)

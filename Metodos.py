@@ -10,6 +10,6 @@ def sumar(A,B,su,rest):
   for i in range(np.shape(A)[0]):
     for j in range(np.shape(B)[1]):
       su[i][j] = A[i][j] + B[i][j]
-      rest[i][j] = A[i][j] + B[i][j]
+      rest[i][j] = A[i][j] - B[i][j]
 
 
