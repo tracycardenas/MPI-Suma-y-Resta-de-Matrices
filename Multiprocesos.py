@@ -70,10 +70,10 @@ if __name__ == "__main__":
     sumaTotal=np.concatenate((suma1,suma2,suma3,suma4,suma5,suma6,suma7,suma8),axis=1,out=None)
     restaTotal=np.concatenate((resta1,resta2,resta3,resta4,resta5,resta6,resta7,resta8),axis=1,out=None)
 
-    #print("Suma de matrices")
-    #for i in range(5):
-    #    print("%f + %f = %f" % (matriz1[i][i], matriz2[i][i], sumaTotal[i][i]))
+    print("Suma de matrices")
+    for i in range(5):
+        print("%f + %f = %f" % (matriz1[i][i], matriz2[i][i], sumaTotal[i][i]))
 
-    #print("Resta de matrices")
-    #for i in range(5):
-     #   print("%f - %f = %f" % (matriz1[i][i], matriz2[i][i], restaTotal[i][i]))
+    print("Resta de matrices")
+    for i in range(5):
+        print("%f - %f = %f" % (matriz1[i][i], matriz2[i][i], restaTotal[i][i]))
