@@ -10,14 +10,13 @@ rank = comm.rank
 print("my rank is : " , rank)
 start_time = MPI.Wtime()
 if rank==0:
-    size_ = (10000,10000)
+    size_ = (1000,1000)
     matriz1 = np.random.randint(10, size=size_).astype("float") / 100
     matriz2 = np.random.randint(10, size=size_).astype("float") / 100
-    #print(matriz1)
-    #print("************")
-    #print(matriz2)
     x=np.hsplit(matriz1,4)
     y=np.hsplit(matriz2,4)
+    comm.send(matriz1,dest=5)
+    comm.send(matriz2,dest=5)
 
     mitad1 = (x[0],y[0])
     comm.send(mitad1,dest=1)
@@ -99,6 +98,8 @@ if rank==4:
     comm.send(resta,dest=5)
 
 if rank==5:
+    matriz1 = comm.recv(source=0)
+    matriz2 = comm.recv(source=0)
     suma1 = comm.recv(source=1)
     suma2 = comm.recv(source=2)
     suma3 = comm.recv(source=3)
@@ -111,10 +112,13 @@ if rank==5:
 
     matrizSuma = np.concatenate((suma1,suma2,suma3,suma4),axis=1)
     matrizResta = np.concatenate((resta1,resta2,resta3,resta4),axis=1)
-    #print("MATRIZ SUMA")
-    #print(matrizSuma)
-    #print("MATRIZ RESTA")
-    #print(matrizResta)
+    print("Suma de matrices")
+    for i in range(5):
+        print("%f + %f = %f" % (matriz1[i][i], matriz2[i][i], matrizSuma[i][i]))
+
+    print("Resta de matrices")
+    for i in range(5):
+        print("%f - %f = %f" % (matriz1[i][i], matriz2[i][i], matrizResta[i][i]))
 
   
 
