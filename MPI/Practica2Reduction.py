@@ -6,7 +6,7 @@ size = comm.size
 rank = comm.rank
 print("my rank is %i" % (rank))
 
-size_ = (10000,10000)
+size_ = (1000,1000)
 rows, columns = size_
 recvdata = np.zeros((rows,int( columns/2)),dtype=float)
 recvdata2 = np.zeros((rows,int( columns/2)),dtype=float)
@@ -18,20 +18,20 @@ recvdata2Resta = np.zeros((rows,int( columns/2)),dtype=float)
 if rank==0:
     matriz1 = np.random.randint(10, size=size_).astype("float") / 100
     matriz2 = np.random.randint(10, size=size_).astype("float") / 100
-    #print("MATRIZ COMPLETA 1")
-    #print(matriz1)
-    #print("MATRIZ COMPLETA 2")
-    #print(matriz2)
-    #print("**********************************")
+    #print("Suma de matrices")
+    #for i in range(5):
+    #    print("%f + %f = " % (matriz1[i][i], matriz2[i][i]))
+
+    #print("Resta de matrices")
+    #for i in range(5):
+    #    print("%f - %f =" % (matriz1[i][i], matriz2[i][i]))
 
     x=np.hsplit(matriz1,2)
     y=np.hsplit(matriz2,2)
     
     mitad1 = (x[0],y[0])
-    #comm.bcast(mitad1, root=0)
     comm.send(mitad1,dest=1)
     mitad2 = (x[1],y[1])
-    #comm.bcast(mitad2, root=0)
     comm.send(mitad2,dest=1)
 
 
@@ -43,10 +43,8 @@ if rank==0:
 
     
 if rank==1:
-    #mitad1 = comm.bcast(mitad1, root=0)
     mitad1 = comm.recv(source=0)
     mitad2 = comm.recv(source=0)
-    #mitad2 = comm.bcast(mitad2, root=0)
 
     A1=mitad1[0]
     B1=mitad1[1]
@@ -72,20 +70,19 @@ if rank==2:
     senddata2Resta=B2*(-1)
 
     
-
-    
 comm.Reduce(senddata,recvdata,root=2,op=MPI.SUM)
 comm.Reduce(senddata2,recvdata2,root=2,op=MPI.SUM)
 comm.Reduce(senddataResta,recvdataResta,root=2,op=MPI.SUM)
 comm.Reduce(senddata2Resta,recvdata2Resta,root=2,op=MPI.SUM)
-#print("RESPUESTA primera mitad")
-#print(recvdata)
-#print("RESPUESTA segunda mitad")
-#print(recvdata2)
-#print("---------------RESULTADO SUMA---------------")
-#print(np.concatenate((recvdata, recvdata2), axis=1))
-#print("---------------RESULTADO RESTA---------------")
-#print(np.concatenate((recvdataResta, recvdata2Resta), axis=1))
 
+sumaTotal = np.concatenate((recvdata, recvdata2), axis=1)
+restaTotal = np.concatenate((recvdataResta, recvdata2Resta), axis=1)
+#print("RESULTADOS SUMA")
+#for i in range(5):
+#  print(" = %f" % (sumaTotal[i][i]))
+
+#print("RESULTADOS RESTA")
+#for i in range(5):
+#  print("= %f" % (restaTotal[i][i]))
 
 
