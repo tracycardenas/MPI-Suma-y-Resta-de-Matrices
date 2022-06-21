@@ -1,7 +1,7 @@
 import multiprocessing
 import numpy as np
 import Metodos
-size_ = (5000,5000)
+size_ = (1000,1000)
 rows, columns = size_
 
 matriz1 = Metodos.generacionMatriz(size_)

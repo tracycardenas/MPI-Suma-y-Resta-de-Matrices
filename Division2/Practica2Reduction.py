@@ -6,7 +6,7 @@ size = comm.size
 rank = comm.rank
 print("my rank is %i" % (rank))
 
-size_ = (10000,10000)
+size_ = (1000,1000)
 rows, columns = size_
 recvdata = np.zeros((rows,int( columns/2)),dtype=float)
 recvdata2 = np.zeros((rows,int( columns/2)),dtype=float)

@@ -4,7 +4,7 @@ import numpy as np
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
-size_ = (10000,10000)
+size_ = (1000,1000)
 rows, columns = size_
 data = np.zeros((rows,int( columns/2)),dtype=int)
 

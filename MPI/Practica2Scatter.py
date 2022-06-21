@@ -7,7 +7,7 @@ print("my rank is %i" % (rank))
 
 
 if rank==0:
-    size_ = (10000,10000)
+    size_ = (1000,1000)
     matriz1 = np.random.randint(10, size=size_).astype("float") / 100
     matriz2 = np.random.randint(10, size=size_).astype("float") / 100
     x=np.hsplit(matriz1,4)
